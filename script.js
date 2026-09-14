@@ -3,37 +3,57 @@
 =================================================== */
 const EVENT_DATE = new Date("2027-01-29T18:00:00").getTime();
 
+
 /* ===================================================
-   2. DOOR REVEAL LOGIC (FIXED WITH MUSIC.JS INTEGRATION)
+   2. DOOR REVEAL LOGIC (FIXED FOR LIVE SERVER AUDIO)
 =================================================== */
 function initDoorReveal() {
   const doors = document.getElementById('doors');
   const doorVideo = document.getElementById('door-video');
+  const audio = document.getElementById('audio');
 
   if (!doors) return;
 
   let isOpened = false;
 
-  function triggerOpen(e) {
+  function startAudio() {
+    if (!audio) return;
+    audio.muted = false; // Ensure unmuted state
+    audio.play().then(() => {
+      const btn = document.getElementById('musicBtn');
+      if (btn) {
+        btn.textContent = '♪';
+        btn.style.opacity = '1';
+      }
+    }).catch(err => {
+      console.log("Audio Direct Play Error:", err);
+    
+      // Try again on the visitor's next tap. click and touchend count as
+      // user gestures for media playback; touchstart does not.
+      const retryAudio = () => {
+        document.removeEventListener('click', retryAudio);
+        document.removeEventListener('touchend', retryAudio);
+        audio.play().catch(() => {});
+      };
+      document.addEventListener('click', retryAudio);
+      document.addEventListener('touchend', retryAudio);
+    });
+  }
+
+  function triggerOpen() {
     if (isOpened) return;
     isOpened = true;
 
-    // 1. Trigger Music.js module on Direct User Gesture (Mobile Fix)
-    if (typeof Music !== 'undefined') {
-      Music.start();
-    }
+    // 1. Immediate Audio Trigger on Direct User Gesture
+    startAudio();
 
-    // 2. Hide Hint Overlay
     const hint = doors.querySelector('.door-overlay');
     if (hint) hint.style.opacity = '0';
 
-    // 3. Play Video (Muted to ensure audio doesn't get blocked)
     if (doorVideo) {
-      doorVideo.muted = true;
-      doorVideo.playsInline = true; 
+      doorVideo.muted = true; 
       doorVideo.setAttribute('playsinline', '');
-      doorVideo.setAttribute('webkit-playsinline', '');
-
+      
       const playPromise = doorVideo.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
@@ -57,9 +77,13 @@ function initDoorReveal() {
     }
   }
 
-  // Dual listener fix for Mobile
+  // click only: a tap on a phone still fires click. A touchstart listener
+  // would run first, but touchstart is not a user gesture for media, so
+  // audio.play() gets rejected there -- and the isOpened guard then stops
+  // the real click from starting the music.
   doors.addEventListener('click', triggerOpen);
 }
+
 /* ===================================================
    3. SCRATCH CARD FEATURE
 =================================================== */
@@ -132,7 +156,7 @@ function initScratchCard() {
 
 
 /* ===================================================
-   4. COUNTDOWN TIMER
+   4. COUNTDOWN TIMER (WALIMA - 31 JAN 2027)
 =================================================== */
 function tickCountdown() {
   const container = document.getElementById('countdown');
@@ -143,8 +167,10 @@ function tickCountdown() {
 
   if (!container || !dd || !hh || !mm || !ss) return;
 
+  // Walima Target Date Direct In-Function (Conflict Free)
+  const walimaDate = new Date('2027-01-31T19:00:00').getTime();
   const now = new Date().getTime();
-  const diff = EVENT_DATE - now;
+  const diff = walimaDate - now;
 
   if (diff <= 0) {
     container.innerHTML = '<div class="cd-cell"><div class="cd-num">Today!</div></div>';
@@ -163,8 +189,6 @@ function tickCountdown() {
   mm.textContent = p(m);
   ss.textContent = p(s);
 }
-
-
 /* ===================================================
    5. RSVP LOGIC
 =================================================== */
