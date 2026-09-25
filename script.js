@@ -1,11 +1,11 @@
 /* ===================================================
-   1. GLOBAL CONSTANTS
+   1. GLOBAL CONSTANTS (WALIMA - 31 JAN 2027)
 =================================================== */
-const EVENT_DATE = new Date("2027-01-29T18:00:00").getTime();
+const EVENT_DATE = new Date("2027-01-31T19:00:00").getTime();
 
 
 /* ===================================================
-   2. DOOR REVEAL LOGIC (FIXED FOR LIVE SERVER AUDIO)
+   2. DOOR REVEAL LOGIC
 =================================================== */
 function initDoorReveal() {
   const doors = document.getElementById('doors');
@@ -18,7 +18,7 @@ function initDoorReveal() {
 
   function startAudio() {
     if (!audio) return;
-    audio.muted = false; // Ensure unmuted state
+    audio.muted = false;
     audio.play().then(() => {
       const btn = document.getElementById('musicBtn');
       if (btn) {
@@ -26,10 +26,7 @@ function initDoorReveal() {
         btn.style.opacity = '1';
       }
     }).catch(err => {
-      console.log("Audio Direct Play Error:", err);
-    
-      // Try again on the visitor's next tap. click and touchend count as
-      // user gestures for media playback; touchstart does not.
+      console.log("Audio Play Error:", err);
       const retryAudio = () => {
         document.removeEventListener('click', retryAudio);
         document.removeEventListener('touchend', retryAudio);
@@ -44,7 +41,6 @@ function initDoorReveal() {
     if (isOpened) return;
     isOpened = true;
 
-    // 1. Immediate Audio Trigger on Direct User Gesture
     startAudio();
 
     const hint = doors.querySelector('.door-overlay');
@@ -66,7 +62,6 @@ function initDoorReveal() {
           };
           doorVideo.addEventListener('timeupdate', checkSparkleTime);
         }).catch(err => {
-          console.log("Video Play Error:", err);
           doors.classList.add('open');
           setTimeout(() => doors.classList.add('gone'), 1200);
         });
@@ -77,86 +72,89 @@ function initDoorReveal() {
     }
   }
 
-  // click only: a tap on a phone still fires click. A touchstart listener
-  // would run first, but touchstart is not a user gesture for media, so
-  // audio.play() gets rejected there -- and the isOpened guard then stops
-  // the real click from starting the music.
   doors.addEventListener('click', triggerOpen);
 }
 
+
 /* ===================================================
-   3. SCRATCH CARD FEATURE
+   3. ROSE GOLD GLITTER HEART SCRATCH CARD
 =================================================== */
-function initScratchCard() {
-  const canvas = document.getElementById('scratch');
+function renderGlitterHeartScratch() {
+  // Checks both possible canvas IDs
+  const canvas = document.getElementById('scratchCanvas') || document.getElementById('scratch');
   if (!canvas) return;
-  const wrap = canvas.parentElement;
-  if (!wrap) return;
-
   const ctx = canvas.getContext('2d');
-  let scratching = false;
-  let cleared = false;
+  const w = canvas.width = 280;
+  const h = canvas.height = 260;
 
-  canvas.width = wrap.offsetWidth || 320;
-  canvas.height = wrap.offsetHeight || 200;
+  ctx.clearRect(0, 0, w, h);
 
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, '#E8B4B8');
-  gradient.addColorStop(0.5, '#F3D2D5');
-  gradient.addColorStop(1, '#D89A9F');
+  // 1. Draw Symmetric Heart Path
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(140, 230);
+  ctx.bezierCurveTo(20, 160, 0, 95, 30, 45);
+  ctx.bezierCurveTo(55, 5, 115, 15, 140, 60);
+  ctx.bezierCurveTo(165, 15, 225, 5, 250, 45);
+  ctx.bezierCurveTo(280, 95, 260, 160, 140, 230);
+  ctx.closePath();
+  ctx.clip(); 
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // 2. Rose Gold Metallic Gradient
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#D4A396');
+  grad.addColorStop(0.3, '#F3D2C9');
+  grad.addColorStop(0.5, '#B88679');
+  grad.addColorStop(0.8, '#E8C4B8');
+  grad.addColorStop(1, '#A06D60');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
 
-  ctx.fillStyle = '#6E2D36';
-  ctx.font = '600 13px "Cinzel", serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('✶ SCRATCH HERE ✶', canvas.width / 2, canvas.height / 2);
+  // 3. Sparkle Glitter Texture Effect
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+  for (let i = 0; i < 350; i++) {
+    const x = Math.random() * w;
+    const y = Math.random() * h;
+    const size = Math.random() * 2.2;
+    ctx.fillRect(x, y, size, size);
+  }
+  ctx.restore();
+
+  // 4. Erase/Scratch Logic
+  let isScratching = false;
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  }
 
   function scratch(e) {
-    if (!scratching || cleared) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
+    if (!isScratching) return;
+    if (e.type.startsWith('touch')) e.preventDefault();
+    const pos = getPos(e);
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
     ctx.fill();
-
-    checkCleared();
   }
 
-  function checkCleared() {
-    if (cleared) return;
-    const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let transparent = 0;
-    for (let i = 3; i < pixelData.length; i += 32) {
-      if (pixelData[i] === 0) transparent++;
-    }
-    if (transparent / (pixelData.length / 32) > 0.5) {
-      cleared = true;
-      canvas.style.transition = 'opacity 0.8s ease';
-      canvas.style.opacity = '0';
-      setTimeout(() => (canvas.style.pointerEvents = 'none'), 800);
-    }
-  }
-
-  canvas.addEventListener('mousedown', (e) => { scratching = true; scratch(e); });
-  window.addEventListener('mouseup', () => (scratching = false));
+  canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+  window.addEventListener('mouseup', () => isScratching = false);
   canvas.addEventListener('mousemove', scratch);
 
-  canvas.addEventListener('touchstart', (e) => { scratching = true; scratch(e); }, { passive: true });
-  window.addEventListener('touchend', () => (scratching = false));
-  canvas.addEventListener('touchmove', (e) => {
-    if (scratching) { e.preventDefault(); scratch(e); }
-  }, { passive: false });
+  canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); }, { passive: false });
+  window.addEventListener('touchend', () => isScratching = false);
+  canvas.addEventListener('touchmove', scratch, { passive: false });
 }
 
 
 /* ===================================================
-   4. COUNTDOWN TIMER (WALIMA - 31 JAN 2027)
+   4. WALIMA COUNTDOWN TIMER
 =================================================== */
 function tickCountdown() {
   const container = document.getElementById('countdown');
@@ -167,10 +165,8 @@ function tickCountdown() {
 
   if (!container || !dd || !hh || !mm || !ss) return;
 
-  // Walima Target Date Direct In-Function (Conflict Free)
-  const walimaDate = new Date('2027-01-31T19:00:00').getTime();
   const now = new Date().getTime();
-  const diff = walimaDate - now;
+  const diff = EVENT_DATE - now;
 
   if (diff <= 0) {
     container.innerHTML = '<div class="cd-cell"><div class="cd-num">Today!</div></div>';
@@ -189,26 +185,18 @@ function tickCountdown() {
   mm.textContent = p(m);
   ss.textContent = p(s);
 }
+
+
 /* ===================================================
-   5. RSVP LOGIC
+   5. FREEZE HERO BACKGROUND VIDEO
 =================================================== */
-function initRSVP() {
-  const rsvpForm = document.getElementById('rsvpForm');
-  if (!rsvpForm) return;
-
-  rsvpForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const thanksMsg = document.getElementById('thanks');
-    if (thanksMsg) {
-      thanksMsg.style.display = 'block';
-    }
-
-    const submitBtn = e.target.querySelector('.btn');
-    if (submitBtn) {
-      submitBtn.style.display = 'none';
-    }
-  });
+function initHeroVideoFreeze() {
+  const heroVideo = document.getElementById('hero-bg-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('ended', function() {
+      heroVideo.pause();
+    });
+  }
 }
 
 
@@ -217,19 +205,10 @@ function initRSVP() {
 =================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   initDoorReveal();
-  initScratchCard();
-  initRSVP();
-  setInterval(tickCountdown, 1000);
+  renderGlitterHeartScratch();
+  initHeroVideoFreeze();
+  
+  // Start live countdown
   tickCountdown();
+  setInterval(tickCountdown, 1000);
 });
-
-/* ===================================================
-   FREEZE HERO VIDEO AT END FRAME
-=================================================== */
-const heroVideo = document.getElementById('hero-bg-video');
-
-if (heroVideo) {
-  heroVideo.addEventListener('ended', function() {
-    heroVideo.pause();
-  });
-}

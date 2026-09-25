@@ -71,58 +71,49 @@
   <span class="arrow">↓</span>
 </div>
 </section>
-<!-- STORY -->
+<!-- STORY / HOST INVITATION -->
 <section class="block host-invitation-block">
   <div class="hosts-container">
     <h3 class="host-name">Mr. &amp; Mrs. Khalid Masood</h3>
-    <p class="family-tag">ALONG WITH</p>
-    <h3 class="host-name">Mr. &amp; Mrs. Sabir Khan</h3>
   </div>
 
-  <p class="family-tag">And Together With Their Families</p>
+  <p class="family-tag" style="margin-top: 0.8rem;">And Together With Their Family</p>
 
-  <h2 class="invite-heading">Invites You</h2>
+  <h2 class="script-heading script-invite">Invites You</h2>
   <p class="invite-subheading">TO JOIN US</p>
 
   <div class="invite-details">
-    <p class="ceremony-text">for the Nikkah and Valima ceremony</p>
-    <p class="ceremony-text">of our beloved Son & Daughter</p>
+    <p class="ceremony-text">for the Valima Reception</p>
+    <p class="ceremony-text">of their beloved Son</p>
     
-    <p class="quote-text">We would be honoured to have you witness</p>
-    <p class="ceremony-text">the moment they say</p>
-    <div class="qabool-text">"Qabool Hai"</div>
+    <p class="quote-text" style="margin-top: 10px;">We would be honoured by your presence and prayers</p>
+    <p class="ceremony-text"> as we celebrate this joyful occasion</p>
   </div>
 </section>
 
 <!-- SCRATCH / SAVE THE DATE SECTION -->
-<section class="block">
+<section class="block scratch-block">
   <div class="eyebrow">SAVE THE DATE</div>
-  <h2 style="font-family: 'Playfair Display', serif !important; font-style: italic !important; font-weight: 600 !important; color: #7a4b56 !important;">
-  Scratch to Reveal
-  </h2>
+  <h2 class="script-heading">Scratch to Reveal</h2>
   <div class="divider"></div>
 
-  <div class="scratch-wrap">
-    <div class="scratch-under">
-     
-
-      <div class="event-block">
-        <div class="event-title">RECEPTION</div>
-        <div class="d-date">31 January 2027</div>
-      </div>
+  <!-- Heart Shape Scratch Container -->
+  <div class="scratch-container">
+    <!-- Under Content (Revealed Text) -->
+    <div class="scratch-under-content">
+      <div class="event-title">WALIMA RECEPTION</div>
+      <div class="d-date">31 January 2027</div>
     </div>
     
-    <!-- Scratch Cover Canvas -->
-    <canvas id="scratch"></canvas>
+    <!-- Glitter Overlay Canvas -->
+    <canvas id="scratchCanvas" width="280" height="260"></canvas>
   </div>
 </section>
 
 <!-- COUNTDOWN -->
 <section class="block">
   <div class="eyebrow">THE MOMENT APPROACHES</div>
-  <h2 style="font-family: 'Playfair Display', serif !important; font-style: italic !important; font-weight: 600 !important; color: #7a4b56 !important;">
-  Walima Countdown
-  </h2>
+  <h2 class="script-heading">Walima Countdown</h2>
   <div class="countdown" id="countdown">
     <div class="cd-cell"><div class="cd-num" id="dd">00</div><div class="cd-lab">DAYS</div></div>
     <div class="cd-cell"><div class="cd-num" id="hh">00</div><div class="cd-lab">HOURS</div></div>
@@ -131,30 +122,61 @@
   </div>
 </section>
 
-<!-- SLIDESHOW -->
-<section class="block">
-  <div class="eyebrow">OUR JOURNEY</div>
-  <h2 style="font-family: 'Playfair Display', serif !important; font-style: italic !important; font-weight: 600 !important; color: #7a4b56 !important;">
-  Moments We Cherish
+<!-- A FEW WORDS -->
+<!-- A FEW WORDS -->
+<section class="block words-wrapper-section">
+  <!-- Top Garland -->
+  <div class="garland-wrap">
+    <svg class="garland-svg" viewBox="0 0 500 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 30 20 Q 130 5, 250 20 T 470 20" fill="none" stroke="#8C5C50" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="250" cy="20" r="4.5" fill="#A06D60"/>
+      <circle cx="190" cy="14" r="3.5" fill="#B88679"/>
+      <circle cx="310" cy="14" r="3.5" fill="#B88679"/>
+      <circle cx="130" cy="22" r="2.5" fill="#8C5C50"/>
+      <circle cx="370" cy="22" r="2.5" fill="#8C5C50"/>
+      <circle cx="70" cy="16" r="2" fill="#B88679"/>
+      <circle cx="430" cy="16" r="2" fill="#B88679"/>
+    </svg>
+  </div>
+
+  <h2 class="script-heading words-outer-title">
+    <span data-i18n="wordsTitle">A few words before we begin</span>
   </h2>
-  <div class="slideshow" id="slideshow">
-    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80')"></div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=80')"></div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80')"></div>
+
+  <!-- Inner White Card Frame -->
+  <div class="words-inner-card">
+    <p data-i18n="words1">Islam made marriage simple and light, easy, and without hardship. Over time our customs carried it far from that simplicity, and made it difficult and expensive.</p>
+    <p data-i18n="words2">The Prophet Muhammad (peace be upon him) said that marriage completes half of one's faith. The other half, as I understand it, is that we keep learning and growing better together.</p>
+    <p data-i18n="words3">This journey is about building something from nothing, facing hardship side by side, and finding joy in small victories, not about an exchange of goods.</p>
+    <p data-i18n="words4">The world is changing, and we should think again about our customs, so that weddings stay simple and full of joy.</p>
+    
+    <div class="words-divider-line"></div>
+    
+    <p class="words-ameen" data-i18n="words5">May Allah make it easy for everyone. Ameen.</p>
+  </div>
+
+  <!-- Bottom Garland -->
+  <div class="garland-wrap garland-bottom">
+    <svg class="garland-svg" viewBox="0 0 500 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 30 20 Q 130 35, 250 20 T 470 20" fill="none" stroke="#8C5C50" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="250" cy="20" r="4.5" fill="#A06D60"/>
+      <circle cx="190" cy="26" r="3.5" fill="#B88679"/>
+      <circle cx="310" cy="26" r="3.5" fill="#B88679"/>
+      <circle cx="130" cy="18" r="2.5" fill="#8C5C50"/>
+      <circle cx="370" cy="18" r="2.5" fill="#8C5C50"/>
+      <circle cx="70" cy="24" r="2" fill="#B88679"/>
+      <circle cx="430" cy="24" r="2" fill="#B88679"/>
+    </svg>
   </div>
 </section>
-
-
 <!-- WALIMA RECEPTION SECTION -->
 <section class="block">
-  <h2 style="font-family: 'Playfair Display', serif !important; font-style: italic !important; font-weight: 600 !important; color: #7a4b56 !important;">
-  Walima Reception
-  </h2>
- <p style="margin-bottom: 20px;">
-  <span style="color: #2c2c2c !important; font-family: 'Cinzel', serif !important; font-style: normal !important; font-size: 0.85rem !important; font-weight: 400 !important; letter-spacing: 0.35em !important; text-transform: uppercase !important;">
-    WHEN &amp; WHERE
-  </span>
-</p>
+  <h2 class="script-heading">Walima Reception</h2>
+  <p style="margin-bottom: 20px;">
+    <span style="color: #2c2c2c !important; font-family: 'Cinzel', serif !important; font-style: normal !important; font-size: 0.85rem !important; font-weight: 400 !important; letter-spacing: 0.35em !important; text-transform: uppercase !important;">
+      WHEN &amp; WHERE
+    </span>
+  </p>
   <div class="facts">
     <div class="fact"><div class="t">RECEPTION</div><div class="v">1:00 PM</div><div class="s">Guest arrival &amp; welcome</div></div>
     <div class="fact"><div class="t">LUNCH</div><div class="v">3:30 PM</div><div class="s">Grand lunch served</div></div>
