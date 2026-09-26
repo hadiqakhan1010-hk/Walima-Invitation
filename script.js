@@ -4,12 +4,10 @@
 const EVENT_DATE = new Date("2027-01-31T19:00:00").getTime();
 
 
-/* ===================================================
-   2. DOOR REVEAL LOGIC
-=================================================== */
 function initDoorReveal() {
   const doors = document.getElementById('doors');
   const doorVideo = document.getElementById('door-video');
+  const heroVideo = document.getElementById('hero-bg-video');
   const audio = document.getElementById('audio');
 
   if (!doors) return;
@@ -19,22 +17,18 @@ function initDoorReveal() {
   function startAudio() {
     if (!audio) return;
     audio.muted = false;
-    audio.play().then(() => {
-      const btn = document.getElementById('musicBtn');
-      if (btn) {
-        btn.textContent = '♪';
-        btn.style.opacity = '1';
+    audio.play().catch(() => {});
+  }
+
+  function playHeroVideo() {
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.currentTime = 0;
+      const promise = heroVideo.play();
+      if (promise !== undefined) {
+        promise.catch(err => console.log("Hero video play error:", err));
       }
-    }).catch(err => {
-      console.log("Audio Play Error:", err);
-      const retryAudio = () => {
-        document.removeEventListener('click', retryAudio);
-        document.removeEventListener('touchend', retryAudio);
-        audio.play().catch(() => {});
-      };
-      document.addEventListener('click', retryAudio);
-      document.addEventListener('touchend', retryAudio);
-    });
+    }
   }
 
   function triggerOpen() {
@@ -50,32 +44,31 @@ function initDoorReveal() {
       doorVideo.muted = true; 
       doorVideo.setAttribute('playsinline', '');
       
-      const playPromise = doorVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          const checkSparkleTime = () => {
-            if (doorVideo.currentTime >= 3.8 || doorVideo.ended) {
-              doorVideo.removeEventListener('timeupdate', checkSparkleTime);
-              doors.classList.add('open');
-              setTimeout(() => doors.classList.add('gone'), 1200);
-            }
-          };
-          doorVideo.addEventListener('timeupdate', checkSparkleTime);
-        }).catch(err => {
-          doors.classList.add('open');
-          setTimeout(() => doors.classList.add('gone'), 1200);
-        });
-      }
+      doorVideo.play().then(() => {
+        const checkSparkleTime = () => {
+          if (doorVideo.currentTime >= 3.8 || doorVideo.ended) {
+            doorVideo.removeEventListener('timeupdate', checkSparkleTime);
+            doors.classList.add('open');
+            // Jab doors hat jayein, tab hero video fresh play ho
+            playHeroVideo();
+            setTimeout(() => doors.classList.add('gone'), 1200);
+          }
+        };
+        doorVideo.addEventListener('timeupdate', checkSparkleTime);
+      }).catch(() => {
+        doors.classList.add('open');
+        playHeroVideo();
+        setTimeout(() => doors.classList.add('gone'), 1200);
+      });
     } else {
       doors.classList.add('open');
+      playHeroVideo();
       setTimeout(() => doors.classList.add('gone'), 1200);
     }
   }
 
   doors.addEventListener('click', triggerOpen);
 }
-
-
 /* ===================================================
    3. ROSE GOLD GLITTER HEART SCRATCH CARD
 =================================================== */
@@ -187,17 +180,7 @@ function tickCountdown() {
 }
 
 
-/* ===================================================
-   5. FREEZE HERO BACKGROUND VIDEO
-=================================================== */
-function initHeroVideoFreeze() {
-  const heroVideo = document.getElementById('hero-bg-video');
-  if (heroVideo) {
-    heroVideo.addEventListener('ended', function() {
-      heroVideo.pause();
-    });
-  }
-}
+
 
 
 /* ===================================================
@@ -206,7 +189,7 @@ function initHeroVideoFreeze() {
 document.addEventListener('DOMContentLoaded', () => {
   initDoorReveal();
   renderGlitterHeartScratch();
-  initHeroVideoFreeze();
+  
   
   // Start live countdown
   tickCountdown();
