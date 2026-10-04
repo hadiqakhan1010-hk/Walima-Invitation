@@ -634,6 +634,225 @@ section.block.words-wrapper-section::before {
   font-size: 1.15rem !important;
   text-align: center !important;
 }
+
+/* ===================================================
+   CARD SIZE, WIDTH & SPACING MATCHING UPPER BLOCK CARDS
+=================================================== */
+
+/* Block Containers - Exact Match with Upper Cards */
+.timeline-section,
+.venue-section {
+  width: auto !important;
+  max-width: 680px !important; /* Upper blocks ki exact width */
+  margin: 2rem auto !important;
+  background: #ffffff !important;
+  border: 1px solid #f2e3d8 !important;
+  border-radius: 24px !important;
+  padding: 2rem 2rem 1.8rem 2rem !important; /* Spacing adjusted */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+  box-sizing: border-box !important;
+}
+
+/* Headings Match (Alex Brush Font) */
+.timeline-title,
+.venue-main-title {
+  font-family: 'Alex Brush', cursive !important;
+  font-size: 3rem !important;
+  color: #8C5C50 !important;
+  font-weight: normal !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.1rem !important; /* Heading bottom gap minimized */
+  text-align: center !important;
+}
+
+/* Heart Line Wrapper Spacing Fix */
+.venue-section .heart-line-wrapper,
+.timeline-section .heart-line-wrapper {
+  margin: 0.2rem auto 0.5rem auto !important; /* Gap reduced */
+}
+
+/* Date Divider Line */
+.timeline-date-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 1rem 0 1.5rem 0 !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  color: #8C5C50 !important;
+}
+
+.timeline-date-header::before,
+.timeline-date-header::after {
+  content: '' !important;
+  flex: 1 !important;
+  height: 1px !important;
+  background: #f0dbcd !important;
+}
+
+/* Timeline Layout */
+.timeline-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
+}
+
+.timeline-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  gap: 1.2rem !important;
+}
+
+.time-col {
+  width: 80px !important;
+  text-align: right !important;
+  font-family: 'Cinzel', serif !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: #5c453d !important;
+  padding-top: 2px !important;
+  flex-shrink: 0 !important;
+}
+
+.divider-col {
+  width: 1px !important;
+  background: #e6d3c5 !important;
+  align-self: stretch !important;
+  min-height: 45px !important;
+}
+
+.content-col {
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+.content-col .event-title {
+  font-family: 'Cinzel', serif !important;
+  font-style: normal !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #8C5C50 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.2rem 0 !important;
+}
+
+.content-col .event-sub {
+  font-family: 'Playfair Display', serif !important;
+  font-style: italic !important;
+  font-size: 0.9rem !important;
+  color: #7d655c !important;
+  margin: 0 !important;
+}
+
+/* Venue Section Details & Gap Fix */
+.venue-details-text {
+  margin: 0.4rem 0 1rem 0 !important; /* Top gap reduced */
+}
+
+.venue-details-text .venue-name {
+  font-family: 'Cinzel', serif !important;
+  font-style: normal !important; /* Italic style removed */
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #8C5C50 !important; /* Same Rose-Brown Color */
+  letter-spacing: 0.12em !important; /* Elegant spacing like host names */
+  text-transform: uppercase !important; /* ALL CAPS */
+  margin-top: 0 !important;
+  margin-bottom: 0.3rem !important;
+  text-align: center !important;
+}
+
+.venue-details-text .venue-address {
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.88rem !important;
+  color: #7d655c !important;
+  letter-spacing: 0.05em !important;
+  margin-top: 0 !important;
+  text-align: center !important;
+}
+
+.venue-section .map-frame {
+  margin-top: 1.2rem !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #f2e3d8 !important;
+}
+
+.venue-section .map-frame iframe {
+  width: 100% !important;
+  height: 230px !important;
+  border: 0 !important;
+  display: block !important;
+}
+
+
+/* ===================================================
+   FOOTER STYLING (EXACT ORIGINAL SCRIPT FONT)
+=================================================== */
+
+footer {
+  text-align: center !important;
+  padding: 3rem 1rem 2.5rem 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+}
+
+/* "We can't wait to celebrate with you." (Original Alex Brush Cursive Style) */
+footer .fnames {
+  font-family: 'Alex Brush', cursive !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  color: #8C5C50 !important;
+  font-size: 2.5rem !important;
+  margin-bottom: 1.2rem !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Stylized Pill Badge Button */
+footer .credit-line {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #f2e3d8 !important;
+  padding: 8px 22px !important;
+  border-radius: 50px !important;
+  color: #8C5C50 !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s ease !important;
+}
+
+footer .credit-line:hover {
+  background: #fcf8f5 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  color: #6d453b !important;
+}
+
+footer .credit-line .insta-icon {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  color: #8C5C50 !important;
+}
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition-duration: .01ms !important; }
   .hero { background-attachment: scroll; }
