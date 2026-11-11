@@ -179,9 +179,47 @@ function tickCountdown() {
   ss.textContent = p(s);
 }
 
+/* =========================================================
+   STABLE LANGUAGE SWITCHING CONTROLLER
+========================================================= */
+document.addEventListener('DOMContentLoaded', function() {
+  const langButtons = document.querySelectorAll('.lang-switch .lang-btn, #langSwitch .lang-btn');
 
+  function applyLanguage(lang) {
+    // Set HTML lang attribute
+    document.documentElement.setAttribute('lang', lang);
 
+    // Active button state
+    langButtons.forEach(btn => {
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
 
+    // Translation update
+    const dict = (typeof TRANSLATIONS !== 'undefined') ? TRANSLATIONS : ((typeof translations !== 'undefined') ? translations : null);
+    if (dict && dict[lang]) {
+      const data = dict[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (data && data[key]) {
+          el.textContent = data[key];
+        }
+      });
+    }
+  }
+
+  // Bind click event
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const selectedLang = this.getAttribute('data-lang');
+      applyLanguage(selectedLang);
+    });
+  });
+});
 
 /* ===================================================
    6. INITIALIZE ALL ON DOM LOAD

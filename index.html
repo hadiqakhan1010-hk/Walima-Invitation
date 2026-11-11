@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +27,14 @@
 
 <!-- MUSIC -->
 <button class="music" id="musicBtn" aria-label="Toggle music">♪</button>
+
+<!-- FLOATING LANGUAGE SWITCHER BADGE -->
+<div class="lang-switch" id="langSwitch">
+  <button type="button" class="lang-btn active" data-lang="en">EN</button>
+  <button type="button" class="lang-btn" data-lang="ur">اردو</button>
+  <button type="button" class="lang-btn" data-lang="de">DE</button>
+</div>
+
 <audio id="audio" preload="auto" loop playsinline>
   <source src="./music/fairytale.mp3" type="audio/mpeg">
 </audio>
@@ -44,60 +52,58 @@
     </div>
 
     <!-- 2. English Translation (White Color) -->
-    <div class="bismillah-english" style="font-size: 0.75rem; letter-spacing: 1.5px; opacity: 0.9; margin-bottom: 1.2rem; text-transform: uppercase; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+    <div class="bismillah-english" data-i18n="bismillahMeaning" style="font-size: 0.75rem; letter-spacing: 1.5px; opacity: 0.9; margin-bottom: 1.2rem; text-transform: uppercase; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
       In the name of Allah, the Most Gracious, the Most Merciful
     </div>
 
     <!-- 3. Custom Quote -->
-    <p class="tag" style="max-width: 480px; margin: 1rem auto 0 auto; line-height: 1.5; text-transform: none; font-style: italic;">
+    <p class="tag" data-i18n="quote" style="max-width: 480px; margin: 1rem auto 0 auto; line-height: 1.5; text-transform: none; font-style: italic;">
       A beautiful chapter of our lives is about to begin, and we would be honored to have you with us.
     </p>
 
     <!-- Names Section -->
     <h1 class="names">
-      <span class="first-name">Abdul Wasay</span>
+      <span class="first-name" data-i18n="name1">Muhammad Abdul Wasay Khalid</span>
       <span class="amp">&amp;</span>
-      <span class="second-name">Hadiqa</span>
+      <span class="second-name" data-i18n="name2">Binte Muhammad Sabir Khan</span>
     </h1>
   </div>
 
   <div class="scroll-cue">
-    <span>SCROLL DOWN</span>
+    <span data-i18n="scrollDown">SCROLL DOWN</span>
     <span class="arrow">↓</span>
   </div>
 </section>
 <!-- STORY / HOST INVITATION -->
 <section class="block host-invitation-block">
   <div class="hosts-container">
-    <h3 class="host-name">Mr. &amp; Mrs. Khalid Masood</h3>
+    <h3 class="host-name" data-i18n="host1">MR. &amp; MRS. KHALID MASOOD KHAN</h3>
   </div>
 
-  <p class="family-tag" style="margin-top: 0.8rem;">And Together With Their Family</p>
+  <p class="family-tag" data-i18n="withFamilies" style="margin-top: 0.8rem;">AND TOGETHER WITH THEIR FAMILY</p>
 
-  <h2 class="script-heading script-invite">Invites You</h2>
-  <p class="invite-subheading">TO JOIN US</p>
+  <h2 class="script-heading script-invite" data-i18n="invitesYou">Invites You</h2>
+  <p class="invite-subheading" data-i18n="toJoinUs">TO JOIN US</p>
 
   <div class="invite-details">
-    <p class="ceremony-text">for the Valima Reception</p>
-    <p class="ceremony-text">of their beloved Son</p>
-    
-    <p class="quote-text" style="margin-top: 10px;">We would be honoured by your presence and prayers</p>
-    <p class="ceremony-text"> as we celebrate this joyful occasion</p>
+    <p class="quote-text" data-i18n="ceremonyNotice" style="margin-top: 10px;">Your presence will be a matter of great honor for us</p>
+    <p class="ceremony-text" data-i18n="ceremonySub">as we celebrate this joyful occasion</p>
   </div>
 </section>
 
 <!-- SCRATCH / SAVE THE DATE SECTION -->
 <section class="block scratch-block">
-  <div class="eyebrow">SAVE THE DATE</div>
-  <h2 class="script-heading">Scratch to Reveal</h2>
+  <div class="eyebrow" data-i18n="saveTheDate">SAVE THE DATE</div>
+  <h2 class="script-heading" data-i18n="scratchToReveal">Scratch to Reveal</h2>
   <div class="divider"></div>
 
   <!-- Heart Shape Scratch Container -->
   <div class="scratch-container">
     <!-- Under Content (Revealed Text) -->
     <div class="scratch-under-content">
-      <div class="event-title">WALIMA RECEPTION</div>
-      <div class="d-date">31 January 2027</div>
+      <div class="event-title" data-i18n="receptionCaps">VALIMA RECEPTION</div>
+      <div class="d-date" data-i18n="date2">Sunday, 31 January 2027</div>
+      <div class="d-hijri" data-i18n="hijri2">23 Sha'ban 1448 AH</div>
     </div>
     
     <!-- Glitter Overlay Canvas -->
@@ -107,13 +113,13 @@
 
 <!-- COUNTDOWN -->
 <section class="block">
-  <div class="eyebrow">THE MOMENT APPROACHES</div>
-  <h2 class="script-heading">Walima Countdown</h2>
+  <div class="eyebrow" data-i18n="momentApproaches">THE MOMENT APPROACHES</div>
+  <h2 class="script-heading" data-i18n="countdownTitle">Walima Countdown</h2>
   <div class="countdown" id="countdown">
-    <div class="cd-cell"><div class="cd-num" id="dd">00</div><div class="cd-lab">DAYS</div></div>
-    <div class="cd-cell"><div class="cd-num" id="hh">00</div><div class="cd-lab">HOURS</div></div>
-    <div class="cd-cell"><div class="cd-num" id="mm">00</div><div class="cd-lab">MINUTES</div></div>
-    <div class="cd-cell"><div class="cd-num" id="ss">00</div><div class="cd-lab">SECONDS</div></div>
+    <div class="cd-cell"><div class="cd-num" id="dd">00</div><div class="cd-lab" data-i18n="days">DAYS</div></div>
+    <div class="cd-cell"><div class="cd-num" id="hh">00</div><div class="cd-lab" data-i18n="hours">HOURS</div></div>
+    <div class="cd-cell"><div class="cd-num" id="mm">00</div><div class="cd-lab" data-i18n="minutes">MINUTES</div></div>
+    <div class="cd-cell"><div class="cd-num" id="ss">00</div><div class="cd-lab" data-i18n="seconds">SECONDS</div></div>
   </div>
 </section>
 
@@ -122,7 +128,7 @@
 <section class="block timeline-section">
   <div class="timeline-header">
     <div class="clock-icon">🕒</div>
-    <h2 class="script-heading timeline-title">Program Timeline</h2>
+    <h2 class="script-heading timeline-title" data-i18n="walimaTitle">Program Timeline</h2>
     
     <div class="heart-line-wrapper">
       <div class="side-line"></div>
@@ -132,25 +138,25 @@
   </div>
 
   <div class="timeline-date-header">
-    <span>SUNDAY, JANUARY 31, 2027</span>
+    <span data-i18n="valimaDate">SUNDAY, JANUARY 31, 2027</span>
   </div>
 
   <div class="timeline-container">
     <div class="timeline-item">
-      <div class="time-col">4:00 PM</div>
+      <div class="time-col" data-i18n="receptionTime">4:00 PM</div>
       <div class="divider-col"></div>
       <div class="content-col">
-        <h3 class="event-title">Valima Reception</h3>
-        <p class="event-sub">Guest arrival &amp; welcome</p>
+        <h3 class="event-title" data-i18n="reception">VALIMA RECEPTION</h3>
+        <p class="event-sub" data-i18n="receptionNote">Guest arrival &amp; welcome</p>
       </div>
     </div>
 
     <div class="timeline-item">
-      <div class="time-col">7:00 PM</div>
+      <div class="time-col" data-i18n="walimaDinnerTime">7:00 PM</div>
       <div class="divider-col"></div>
       <div class="content-col">
-        <h3 class="event-title">DINNER</h3>
-        <p class="event-sub">Grand dinner served</p>
+        <h3 class="event-title" data-i18n="dinner">DINNER</h3>
+        <p class="event-sub" data-i18n="walimaDinnerNote">Grand dinner served</p>
       </div>
     </div>
   </div>
@@ -160,26 +166,27 @@
 <section class="block venue-section">
   <div class="venue-header">
     <div class="pin-icon">📍</div>
-    <h2 class="script-heading venue-main-title">Venue</h2>
-    
+    <h2 class="script-heading venue-main-title" data-i18n="venue">Venue</h2>
+  </div>
+
   <div class="venue-details-text">
-    <h3 class="venue-name">Staff Club</h3>
-    <p class="venue-address">Karachi</p>
+    <h3 class="venue-name" data-i18n="venueName">Staff Club</h3>
+    <p class="venue-address" data-i18n="venueAddress">Karachi</p>
   </div>
 
   <!-- GOOGLE MAP FRAME (FIXED LINK) -->
-<div class="map-frame">
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4451.504458578913!2d67.1160740152005!3d24.941245586238097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338bd455009f9%3A0x2158318ca8b98004!2sStaff%20Club!5e1!3m2!1sen!2sde!4v1790422116281!5m2!1sen!2sde" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Venue map" 
-    width="100%" 
-    height="230" 
-    style="border:0;" 
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade" 
-    title="Royal Marquee Location Map">
-  </iframe>
-</div>
+  <div class="map-frame">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4451.504458578913!2d67.1160740152005!3d24.941245586238097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338bd455009f9%3A0x2158318ca8b98004!2sStaff%20Club!5e1!3m2!1sen!2sde!4v1790422116281!5m2!1sen!2sde" 
+      width="100%" 
+      height="230" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade" 
+      title="Staff Club Location Map">
+    </iframe>
+  </div>
 </section>
 
 <footer>
@@ -197,5 +204,7 @@
 
 <script src="music.js"></script>
 <script src="script.js"></script>
+<script src="lang.js"></script>
+
 </body>
 </html>

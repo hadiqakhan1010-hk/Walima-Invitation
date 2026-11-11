@@ -16,7 +16,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Cormorant Garamond', serif;
   color: var(--ink);
-  background: #faf6f0 !important;
+  background: #c9bdc2 !important;
   overflow-x: hidden;
 }
 
@@ -389,6 +389,55 @@ section.block::before {
   touch-action: none;
 }
 
+
+/* ===================================================
+   SCRATCH HEART CONTENT & HIJRI DATE STYLING
+=================================================== */
+.scratch-under-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 15px 20px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.scratch-under-content .event-title {
+  font-family: 'Marcellus', serif !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 1.5px !important;
+  color: #8C5C50 !important;
+  margin-bottom: 6px !important;
+  text-transform: uppercase !important;
+}
+
+.scratch-under-content .d-date {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: #4A352F !important;
+  line-height: 1.25 !important;
+  margin-bottom: 4px !important;
+}
+
+.scratch-under-content .d-hijri {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 0.95rem !important;
+  font-style: italic !important;
+  color: #7D655C !important;
+  line-height: 1.2 !important;
+}
+
+/* Urdu Language Font Adjustments inside Heart */
+html[lang="ur"] .scratch-under-content .d-date,
+html[lang="ur"] .scratch-under-content .d-hijri {
+  font-family: 'Nastaliq', 'Jameel Noori Nastaliq', 'Urdu Typesetting', serif !important;
+  font-size: 1rem !important;
+}
+
 /* ---------- COUNTDOWN ---------- */
 .countdown {
   display: flex;
@@ -642,8 +691,8 @@ section.block.words-wrapper-section::before {
 /* Block Containers - Exact Match with Upper Cards */
 .timeline-section,
 .venue-section {
-  width: auto !important;
-  max-width: 680px !important; /* Upper blocks ki exact width */
+  width: 90% !important;
+  max-width: 700px !important; /* Upper blocks ki exact width */
   margin: 2rem auto !important;
   background: #ffffff !important;
   border: 1px solid #f2e3d8 !important;
@@ -657,7 +706,7 @@ section.block.words-wrapper-section::before {
 .timeline-title,
 .venue-main-title {
   font-family: 'Alex Brush', cursive !important;
-  font-size: 3rem !important;
+  font-size: 2.5rem !important;
   color: #8C5C50 !important;
   font-weight: normal !important;
   text-transform: none !important;
@@ -710,11 +759,11 @@ section.block.words-wrapper-section::before {
 }
 
 .time-col {
-  width: 80px !important;
+  width: 70px !important;
   text-align: right !important;
   font-family: 'Cinzel', serif !important;
   font-weight: 600 !important;
-  font-size: 0.95rem !important;
+  font-size: 0.88rem !important;
   color: #5c453d !important;
   padding-top: 2px !important;
   flex-shrink: 0 !important;
@@ -735,7 +784,7 @@ section.block.words-wrapper-section::before {
 .content-col .event-title {
   font-family: 'Cinzel', serif !important;
   font-style: normal !important;
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
   font-weight: 700 !important;
   color: #8C5C50 !important;
   letter-spacing: 0.08em !important;
@@ -759,7 +808,7 @@ section.block.words-wrapper-section::before {
 .venue-details-text .venue-name {
   font-family: 'Cinzel', serif !important;
   font-style: normal !important; /* Italic style removed */
-  font-size: 1.35rem !important;
+  font-size: 1.5rem !important;
   font-weight: 700 !important;
   color: #8C5C50 !important; /* Same Rose-Brown Color */
   letter-spacing: 0.12em !important; /* Elegant spacing like host names */
@@ -792,6 +841,111 @@ section.block.words-wrapper-section::before {
   border: 0 !important;
   display: block !important;
 }
+
+
+/* ===================================================
+   LANGUAGE SWITCHER STABILITY FIX
+=================================================== */
+.lang-switch {
+  position: fixed !important;
+  bottom: 25px !important;
+  left: 25px !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: 99999 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid #f2e3d8 !important;
+  border-radius: 50px !important;
+  padding: 4px 6px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
+  width: auto !important;
+}
+
+.lang-switch .lang-btn {
+  border: none !important;
+  background: transparent !important;
+  color: #7d655c !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 25px !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+  outline: none !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+.lang-switch .lang-btn.active {
+  background: #8C5C50 !important;
+  color: #ffffff !important;
+}
+
+
+/* ===================================================
+   STABLE FLOATING LANGUAGE SWITCHER (NO RTL JUMPING)
+=================================================== */
+.lang-switch,
+#langSwitch {
+  position: fixed !important;
+  bottom: 25px !important;
+  left: 25px !important;
+  right: auto !important;
+  top: auto !important;
+  z-index: 999999 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid #f2e3d8 !important;
+  border-radius: 50px !important;
+  padding: 4px 6px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  direction: ltr !important; /* Force Left-to-Right layout inside pill */
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  width: max-content !important;
+}
+
+/* Force Left-to-Right inside badge even in RTL mode */
+html[dir="rtl"] .lang-switch,
+html[dir="rtl"] #langSwitch {
+  left: 25px !important;
+  right: auto !important;
+  direction: ltr !important;
+}
+
+.lang-switch .lang-btn,
+#langSwitch .lang-btn {
+  border: none !important;
+  background: transparent !important;
+  color: #7d655c !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 25px !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+  outline: none !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.lang-switch .lang-btn.active,
+#langSwitch .lang-btn.active {
+  background: #8C5C50 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(140, 92, 80, 0.3) !important;
+}
+
 
 
 /* ===================================================
